@@ -1,0 +1,80 @@
+﻿<html lang=ja>
+<head>
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<link rel="stylesheet" href="pw208.css" type="text/css" />
+<script type="text/javascript" src="smapri_pw208demo.js"></script>
+<title>PW208 Demo App - Print Result</title>
+<script type="text/javascript"><!--
+	window.onload = function onLoad() {
+		param = GetQueryString();
+
+		if(param["result"] == "OK"){
+			document.getElementById("print_result").innerHTML = "Successfully submit print data.\n";
+		}else{
+			document.getElementById("print_result").innerHTML = "Failed to submit print data.\n";
+		}
+
+		document.getElementById("result").innerHTML = param["result"];
+		document.getElementById("function").innerHTML = param["function"];
+		document.getElementById("message").innerHTML = param["message"];
+		document.getElementById("printer").innerHTML = param["printer"];
+		document.getElementById("SBPLVersion").innerHTML = param["SBPLVersion"];
+
+
+		document.getElementById("location").value = location.href;
+	}
+
+	function GetQueryString() {
+		if (1 < document.location.search.length) {
+			// 最初の1文字 (?記号) を除いた文字列を取得する
+			// Obtain string except first character (? symbol)
+			var query = document.location.search.substring(1);
+
+			// クエリの区切り記号 (&) で文字列を配列に分割する
+			// Split the string with delimiter (&) and store into array 
+			var parameters = query.split('&');
+
+			var result = new Object();
+			for (var i = 0; i < parameters.length; i++) {
+				// パラメータ名とパラメータ値に分割する
+				// split parameter name and value
+				var element = parameters[i].split('=');
+
+				var paramName = decodeURIComponent(element[0]);
+				var paramValue = decodeURIComponent(element[1]);
+
+				// パラメータ名をキーとして連想配列に追加する
+				// add the value into array with the parameter name
+				result[paramName] = decodeURIComponent(paramValue);
+			}
+			return result;
+		}
+		return null;
+	}
+
+	function close_window() {
+		window.location.href = param["request_path"];
+	}
+
+--></script>
+</head>
+<body>
+<div class="main">
+	<div class="header">Print Result</div>
+	<div><center><br><br><font color="white" id="print_result"></font><br><br><button onclick="close_window();">Confirm</button></center></div>
+
+	<!--<div>
+		<br>
+		<center><font color="white">Details</font>
+		<table border="1" bgcolor="#ffffff">
+			<tr><td>result</td><td id="result"></td></tr>
+			<tr><td>function</td><td id="function"></td></tr>
+			<tr><td>message</td><td id="message"></td></tr>
+			<tr><td>printer</td><td id="printer"></td></tr>
+			<tr><td>SBPLVersion</td><td id="SBPLVersion"></td></tr>
+		</table>
+		</center>
+	</div>-->
+</div>
+</body>
+</html>
